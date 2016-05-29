@@ -3,8 +3,72 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9C3D94B1-625E-4844-AC32-B02C2B047D27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0E5C3A0-5365-4068-891A-E19044C4706D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Core", "src\CodeAnalysisTools.Core\CodeAnalysisTools.Core.csproj", "{20ED6FBE-DD38-4A74-A869-CC77F23E1168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NETStandard", "NETStandard", "{7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Portable.Refactorings", "src\Portable\CodeAnalysisTools.Portable.Refactorings\CodeAnalysisTools.Portable.Refactorings.csproj", "{3698AEF7-1123-427E-B02C-3A0CAE3560D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Refactorings.Vsix", "src\NETStandard\CodeAnalysisTools.Refactorings.Vsix\CodeAnalysisTools.Refactorings.Vsix.csproj", "{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.NetStandard.Refactorings", "src\NETStandard\CodeAnalysisTools.NetStandard.Refactorings\CodeAnalysisTools.NetStandard.Refactorings.csproj", "{52DA3057-211E-42E8-9982-DB62FB61F786}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.NetStandard.Configuration", "src\NETStandard\CodeAnalysisTools.NetStandard.Configuration\CodeAnalysisTools.NetStandard.Configuration.csproj", "{94A4B427-DE81-4F76-9F29-EB33796A4D57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Providers", "src\CodeAnalysisTools.Providers\CodeAnalysisTools.Providers.csproj", "{90C47742-34B3-4C71-8B79-D020B60E816B}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DA3057-211E-42E8-9982-DB62FB61F786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DA3057-211E-42E8-9982-DB62FB61F786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DA3057-211E-42E8-9982-DB62FB61F786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DA3057-211E-42E8-9982-DB62FB61F786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A4B427-DE81-4F76-9F29-EB33796A4D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A4B427-DE81-4F76-9F29-EB33796A4D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A4B427-DE81-4F76-9F29-EB33796A4D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A4B427-DE81-4F76-9F29-EB33796A4D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90C47742-34B3-4C71-8B79-D020B60E816B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C47742-34B3-4C71-8B79-D020B60E816B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C47742-34B3-4C71-8B79-D020B60E816B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C47742-34B3-4C71-8B79-D020B60E816B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
+		{7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
+		{CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
+		{3698AEF7-1123-427E-B02C-3A0CAE3560D4} = {CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}
+		{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64} = {7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}
+		{52DA3057-211E-42E8-9982-DB62FB61F786} = {7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}
+		{94A4B427-DE81-4F76-9F29-EB33796A4D57} = {7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}
+		{90C47742-34B3-4C71-8B79-D020B60E816B} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
 	EndGlobalSection
 EndGlobal
