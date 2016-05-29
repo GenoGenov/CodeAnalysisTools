@@ -9,13 +9,13 @@ using Microsoft.CodeAnalysis.CodeRefactorings;
 namespace CodeAnalysisTools.Refactorings
 {
 	[ExportCodeRefactoringProvider(LanguageNames.CSharp, Name = nameof(MainRefactoringProvider)), Shared]
-	public class MainRefactoringProvider
+	public class MainRefactoringProvider : CodeRefactoringProvider
 	{
 		private static ImmutableArray<CodeAnalysisRefactoringProvider> RefactoringProviders = ImmutableArray.Create<CodeAnalysisRefactoringProvider>(
 			new ExtractDtoCodeRefactoringProvider()
 			);
 
-		public async Task ComputeRefactoringsAsync(CodeRefactoringContext context)
+		public sealed override async Task ComputeRefactoringsAsync(CodeRefactoringContext context)
 		{
 			foreach (var provider in RefactoringProviders)
 			{
