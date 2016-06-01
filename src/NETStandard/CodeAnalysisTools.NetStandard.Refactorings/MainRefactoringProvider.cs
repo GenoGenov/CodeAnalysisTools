@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.ComponentModel.Composition;
 using System.Composition;
 using System.IO;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using CodeAnalysisTools.Configuration;
 using CodeAnalysisTools.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeRefactorings;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace CodeAnalysisTools.Refactorings
 {
@@ -18,7 +20,7 @@ namespace CodeAnalysisTools.Refactorings
 
 		public sealed async override Task ComputeRefactoringsAsync(CodeRefactoringContext context)
 		{
-			var options = new CodeAnalysisConfigurationProvider(Path.Combine(context.Document.Project.Solution.FilePath, "..\\"));
+			var options = CodeAnalysisConfigurationProvider.GetOptions(Path.Combine(context.Document.Project.Solution.FilePath, "..\\"));
 
 			foreach (var provider in RefactoringProviders)
 			{

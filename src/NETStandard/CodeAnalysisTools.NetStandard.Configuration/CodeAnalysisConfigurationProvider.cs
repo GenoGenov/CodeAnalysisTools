@@ -1,29 +1,29 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.IO;
 using CodeAnalysisTools.Core;
 using Microsoft.Extensions.Configuration;
 
 namespace CodeAnalysisTools.Configuration
 {
-    public class CodeAnalysisConfigurationProvider : CodeAnalysisOptions
+	public class CodeAnalysisConfigurationProvider
     {
-		public static CodeAnalysisOptions options;
+		private const string FileConfigName = "code.analysis.json";
 
-		IConfigurationRoot configRoot;
-
-		public CodeAnalysisConfigurationProvider(string basePath)
+		public static CodeAnalysisOptions GetOptions(string basePath)
 		{
-			this.configRoot = new ConfigurationBuilder()
-				.SetBasePath(basePath)
-				.AddJsonFile("code.analysis.json", false, true)
-				.Build();
-		}
-
-		public override bool ImplementMethods
-		{
-			get
+			if (File.Exists(Path.Combine(basePath, FileConfigName)))
 			{
-				return bool.Parse(this.configRoot["implementMethods"]);
+				var options = new CodeAnalysisOptions();
+
+				new ConfigurationBuilder()
+					.SetBasePath(basePath)
+					.AddJsonFile(FileConfigName, true, true)
+					.Build()
+					.Bind(options);
+
+				return options;
 			}
+
+			return CodeAnalysisOptions.Default;
 		}
 	}
 }

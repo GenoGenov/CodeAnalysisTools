@@ -1,13 +1,16 @@
-﻿namespace CodeAnalysisTools.Core
+﻿using System.Collections.Generic;
+
+namespace CodeAnalysisTools.Core
 {
-	internal class DefaultCodeAnalysisOptions : CodeAnalysisOptions
+	public class DefaultCodeAnalysisOptions : CodeAnalysisOptions
 	{
-		public override bool ImplementMethods
+		public DefaultCodeAnalysisOptions()
 		{
-			get
+			this.ExtractDto = new OptionsModel.ExtractDtoOptions
 			{
-				return false;
-			}
+				ImplementMethods = false,
+				Folders = new List<string>()
+			};
 		}
 	}
 }

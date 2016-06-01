@@ -1,9 +1,11 @@
-﻿namespace CodeAnalysisTools.Core
+﻿using CodeAnalysisTools.Core.OptionsModel;
+
+namespace CodeAnalysisTools.Core
 {
 	public class CodeAnalysisOptions
 	{
 		public static CodeAnalysisOptions Default { get; } = new DefaultCodeAnalysisOptions();
 
-		public virtual bool ImplementMethods { get; }
+		public ExtractDtoOptions ExtractDto { get; set; }
 	}
 }
