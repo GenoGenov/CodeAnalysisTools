@@ -7,9 +7,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using CodeAnalysisTools.Core.Services;
+using CodeAnalysisTools.Core.ViewModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeRefactorings;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.VisualStudio.PlatformUI;
 
 namespace CodeAnalysisTools.Refactorings
@@ -17,38 +21,11 @@ namespace CodeAnalysisTools.Refactorings
 	[ExportCodeRefactoringProvider(LanguageNames.CSharp, Name = nameof(MainRefactoringProvider)), Shared]
 	internal class ExtractAssemblerCodeRefactoringProvider : CodeRefactoringProvider
 	{
-		internal static ExtractAssembler modalOptions;
-
 		private static string optionsText = string.Empty;
 
 		public override async Task ComputeRefactoringsAsync(CodeRefactoringContext context)
 		{
-			InitWindow();
-
 			context.RegisterRefactoring(new Refactoring(context));
-		}
-
-		private static void InitWindow()
-		{
-			Thread newWindowThread = new Thread(new ThreadStart(() =>
-			{
-				modalOptions = new ExtractAssembler();
-				// When the window closes, shut down the dispatcher
-				modalOptions.Closing += (_, __) =>
-				 {
-					 optionsText = modalOptions.docText.Text;
-				 };
-				modalOptions.Closed += (_, __) =>
-				{
-					Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
-				};
-				// Start the Dispatcher Processing
-				System.Windows.Threading.Dispatcher.Run();
-			}));
-
-			newWindowThread.SetApartmentState(ApartmentState.STA);
-			newWindowThread.IsBackground = true;
-			newWindowThread.Start();
 		}
 
 		private class Refactoring : CodeActionWithOptions
@@ -72,22 +49,40 @@ namespace CodeAnalysisTools.Refactorings
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{
-					return new object();
+					return null;
 				}
-				return modalOptions.Dispatcher.Invoke(() =>
+
+				var service = this.ctx.Document.Project.LanguageServices.GetService<IRefactoringOptionsService>();
+
+				var semantic = ctx.Document.GetSemanticModelAsync(cancellationToken).Result;
+				var root = ctx.Document.GetSyntaxRootAsync().Result;
+
+				var model = new ExtractAssemblerViewModel();
+				model.ImplementDtoConvert = true;
+				model.ImplementModelConvert = false;
+				model.PossibleDtos = root.DescendantNodesAndSelf().OfType<TypeDeclarationSyntax>().Select(x => semantic.GetDeclaredSymbol(x));
+				model.PossibleModels = root.DescendantNodesAndSelf().OfType<TypeDeclarationSyntax>().Select(x => semantic.GetDeclaredSymbol(x));
+				model.SelectedDto = model.PossibleDtos.FirstOrDefault();
+				model.SelectedModel = model.PossibleModels.FirstOrDefault();
+				var result = service.GetOptions(model);
+
+				if (result)
 				{
-					if (cancellationToken.IsCancellationRequested)
-					{ return (bool?)null; }
-					return modalOptions.ShowModal();
-				}).GetValueOrDefault();
+					return model;
+				}
+
+				return null;
 			}
 
 			protected override Task<IEnumerable<CodeActionOperation>> ComputeOperationsAsync(object options, CancellationToken cancellationToken)
 			{
-				if (cancellationToken.IsCancellationRequested)
+				var model = options as ExtractAssemblerViewModel;
+
+				if (cancellationToken.IsCancellationRequested || model == null)
 				{
 					return Task.FromResult(Enumerable.Empty<CodeActionOperation>());
 				}
+
 				return Task.FromResult(new CodeActionOperation[] { new ApplyChangesOperation(this.ctx.Document.Project.AddDocument("asd", optionsText).Project.Solution) }.AsEnumerable());
 			}
 		}

@@ -1,0 +1,22 @@
+﻿<vs:DialogWindow x:Class="CodeAnalysisTools.Refactorings.RefactoringDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeAnalysisTools.Refactorings"
+             xmlns:views="clr-namespace:CodeAnalysisTools.Refactorings.Dialogs"
+             xmlns:viewmodels="clr-namespace:CodeAnalysisTools.Core.ViewModel;assembly=CodeAnalysisTools.Core"
+             mc:Ignorable="d" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:ExtractAssemblerViewModel}">
+            <views:ExtractAssemblerControl />
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <ContentControl x:Name="panel" Content="{Binding}">
+        </ContentControl>
+        <Button Click="Button_Click" Content="I'm Done." VerticalContentAlignment="Center" Margin="0,10,0,0"/>
+    </StackPanel>
+   
+</vs:DialogWindow>

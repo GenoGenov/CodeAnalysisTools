@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.ComponentModel.Composition;
 using System.Composition;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,7 +6,6 @@ using CodeAnalysisTools.Configuration;
 using CodeAnalysisTools.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeRefactorings;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace CodeAnalysisTools.Refactorings
 {

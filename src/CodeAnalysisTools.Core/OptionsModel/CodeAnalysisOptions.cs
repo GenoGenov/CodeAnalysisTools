@@ -7,5 +7,7 @@ namespace CodeAnalysisTools.Core
 		public static CodeAnalysisOptions Default { get; } = new DefaultCodeAnalysisOptions();
 
 		public ExtractDtoOptions ExtractDto { get; set; }
+
+		public ExtractAssemblerOptions ExtractAssembler { get; set; }
 	}
 }
