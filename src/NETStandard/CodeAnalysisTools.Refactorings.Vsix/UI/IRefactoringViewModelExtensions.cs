@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using CodeAnalysisTools.Core.ViewModel;
+using CodeAnalysisTools.Core.Models;
 using CodeAnalysisTools.Refactorings.Vsix;
 using CodeAnalysisTools.Refactorings.Vsix.UI;
 

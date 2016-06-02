@@ -13,7 +13,6 @@ namespace CodeAnalysisTools.Refactorings
 {
 	public class ExtractDtoCodeRefactoringProvider : CodeAnalysisRefactoringProvider
 	{
-		public const string RefactoringId = "REF001";
 		public const string RefactoringName = "Extract DTO";
 		public sealed override async Task ComputeRefactoringsAsync(CodeRefactoringContext context, CodeAnalysisOptions options)
 		{

@@ -13,7 +13,9 @@ namespace CodeAnalysisTools.Refactorings
 	public class MainRefactoringProvider : CodeRefactoringProvider
 	{
 		private static ImmutableArray<CodeAnalysisRefactoringProvider> RefactoringProviders = ImmutableArray.Create<CodeAnalysisRefactoringProvider>(
-			new ExtractDtoCodeRefactoringProvider()
+			new ExtractDtoCodeRefactoringProvider(),
+			new ExtractConverterCodeRefactoringProvider(),
+			new FixNamespaceCodeRefactoringProvider()
 			);
 
 		public sealed async override Task ComputeRefactoringsAsync(CodeRefactoringContext context)

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
-namespace CodeAnalysisTools.Core.ViewModel
+namespace CodeAnalysisTools.Core.Models
 {
-	public class ExtractAssemblerViewModel : IRefactoringModel
+	public class ExtractConverterModel : IRefactoringModel
 	{
 		public IEnumerable<ISymbol> PossibleDtos { get; set; }
 
@@ -15,6 +15,14 @@ namespace CodeAnalysisTools.Core.ViewModel
 
 		public bool ImplementModelConvert { get; set; }
 
+		public bool ImplementModelConvertDisabled { get; set; }
+
 		public bool ImplementDtoConvert { get; set; }
+
+		public bool ImplementDtoConvertDisabled { get; set; }
+
+		public bool EnableDtoSelect { get; set; }
+
+		public bool EnableModelSelect { get; set; }
 	}
 }

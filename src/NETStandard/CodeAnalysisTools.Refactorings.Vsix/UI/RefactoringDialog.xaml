@@ -6,10 +6,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CodeAnalysisTools.Refactorings"
              xmlns:views="clr-namespace:CodeAnalysisTools.Refactorings.Dialogs"
-             xmlns:viewmodels="clr-namespace:CodeAnalysisTools.Core.ViewModel;assembly=CodeAnalysisTools.Core"
+             xmlns:viewmodels="clr-namespace:CodeAnalysisTools.Core.Models;assembly=CodeAnalysisTools.Core"
              mc:Ignorable="d" SizeToContent="WidthAndHeight">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewmodels:ExtractAssemblerViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:ExtractConverterModel}">
             <views:ExtractAssemblerControl />
         </DataTemplate>
     </Window.Resources>

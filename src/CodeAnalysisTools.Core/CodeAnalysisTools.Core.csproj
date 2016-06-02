@@ -53,8 +53,8 @@
     <Compile Include="OptionsModel\ExtractDtoOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IRefactoringOptionsService.cs" />
-    <Compile Include="ViewModel\ExtractAssemblerViewModel.cs" />
-    <Compile Include="ViewModel\IRefactoringViewModel.cs" />
+    <Compile Include="Models\ExtractAssemblerViewModel.cs" />
+    <Compile Include="Models\IRefactoringModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

@@ -4,7 +4,7 @@ using System.Composition;
 using System.Windows;
 using System.Windows.Controls;
 using CodeAnalysisTools.Core.Services;
-using CodeAnalysisTools.Core.ViewModel;
+using CodeAnalysisTools.Core.Models;
 using CodeAnalysisTools.Refactorings.Dialogs;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Host.Mef;
@@ -20,7 +20,7 @@ namespace CodeAnalysisTools.Refactorings.Vsix.Services
 		{
 			this.dialogFactories = new Dictionary<Type, Func<IRefactoringModel, UserControl>>()
 			{
-				{ typeof(ExtractAssemblerViewModel), (m) => new ExtractAssemblerControl() }
+				{ typeof(ExtractConverterModel), (m) => new ExtractAssemblerControl() }
 			};
 		}
 
@@ -39,11 +39,6 @@ namespace CodeAnalysisTools.Refactorings.Vsix.Services
 			var control = factory(viewModel);
 
 			control.DataContext = viewModel;
-			//this.dialog.Dispatcher.Invoke(
-			//	() =>
-			//{
-			//	this.dialog.panel.Children.Add(control);
-			//});
 
 			this.dialog.DataContext = viewModel;
 

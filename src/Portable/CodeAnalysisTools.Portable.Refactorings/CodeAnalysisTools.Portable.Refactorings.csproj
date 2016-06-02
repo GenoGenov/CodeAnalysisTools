@@ -39,9 +39,9 @@
       <Project>{20ED6FBE-DD38-4A74-A869-CC77F23E1168}</Project>
       <Name>CodeAnalysisTools.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CodeAnalysisTools.Providers\CodeAnalysisTools.Providers.csproj">
+    <ProjectReference Include="..\..\CodeAnalysisTools.Providers\CodeAnalysisTools.ActionProviders.csproj">
       <Project>{90c47742-34b3-4c71-8b79-d020b60e816b}</Project>
-      <Name>CodeAnalysisTools.Providers</Name>
+      <Name>CodeAnalysisTools.ActionProviders</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

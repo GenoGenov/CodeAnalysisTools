@@ -1,4 +1,4 @@
-﻿using CodeAnalysisTools.Core.ViewModel;
+﻿using CodeAnalysisTools.Core.Models;
 using Microsoft.CodeAnalysis.Host;
 
 namespace CodeAnalysisTools.Core.Services

@@ -6,16 +6,22 @@
              xmlns:local="clr-namespace:CodeAnalysisTools.Refactorings.Dialogs"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" MinHeight="200" MinWidth="200">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Border Padding="15" BorderBrush="BlueViolet" BorderThickness="1">
         <Grid Margin="2">
             <StackPanel Orientation="Vertical">
                 <Label x:Name="label" Content="Extract Assembler" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Height="36" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Animated" Cursor="Pen" Margin="0" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Bold"/>
                 <StackPanel>
                     <TextBlock Text="Dto"></TextBlock>
-                    <ComboBox IsTextSearchEnabled="True" IsEditable="True" IsTextSearchCaseSensitive="False" ItemsSource="{Binding PossibleDtos}" SelectedItem="{Binding SelectedDto, Mode=TwoWay}">
+                    <ComboBox Visibility="{Binding Path=EnableDtoSelect, Converter={StaticResource BoolToVis}}" IsTextSearchEnabled="True" IsEditable="True" IsTextSearchCaseSensitive="False" ItemsSource="{Binding PossibleDtos}" SelectedItem="{Binding SelectedDto, Mode=TwoWay}">
                     </ComboBox>
+                    <TextBlock Background="Honeydew" DataContext="{Binding SelectedDto}" Text="{Binding Name}" Visibility="{Binding Path=EnableModelSelect, Converter={StaticResource BoolToVis}}"></TextBlock>
                     <TextBlock Text="Model"></TextBlock>
-                    <ComboBox IsTextSearchEnabled="True" IsEditable="True" IsTextSearchCaseSensitive="False" ItemsSource="{Binding PossibleModels}" SelectedItem="{Binding SelectedModel, Mode=TwoWay}"></ComboBox>
+                    <ComboBox Visibility="{Binding Path=EnableModelSelect, Converter={StaticResource BoolToVis}}" IsTextSearchEnabled="True" IsEditable="True" IsTextSearchCaseSensitive="False" ItemsSource="{Binding PossibleModels}" SelectedItem="{Binding SelectedModel, Mode=TwoWay}"></ComboBox>
+                    <TextBlock Background="Honeydew" Text="{Binding SelectedModel}" Visibility="{Binding Path=EnableDtoSelect, Converter={StaticResource BoolToVis}}"></TextBlock>
+
                     <CheckBox IsChecked="{Binding ImplementDtoConvert, Mode=TwoWay}">Implement model convert</CheckBox>
                     <CheckBox IsChecked="{Binding ImplementModelConvert, Mode=TwoWay}">Implement dto convert</CheckBox>
                 </StackPanel>
