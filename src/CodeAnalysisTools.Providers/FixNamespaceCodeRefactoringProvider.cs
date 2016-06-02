@@ -11,7 +11,6 @@ namespace CodeAnalysisTools.Refactorings
 {
 	public class FixNamespaceCodeRefactoringProvider : CodeAnalysisRefactoringProvider
 	{
-		public const string RefactoringName = "Fix Namespace";
 		public sealed override async Task ComputeRefactoringsAsync(CodeRefactoringContext context, CodeAnalysisOptions options)
 		{
 			var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);

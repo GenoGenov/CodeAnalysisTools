@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CodeAnalysisTools.Core.Services;
 using CodeAnalysisTools.Core.Models;
+using CodeAnalysisTools.Core.Services;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeRefactorings;
@@ -18,7 +16,6 @@ namespace CodeAnalysisTools.Providers.CodeActions
 	public class ExtractConverterCodeAction : CodeActionWithOptions
 	{
 		private readonly Document document;
-		private readonly string title;
 		private readonly CancellationToken token;
 		private readonly TypeDeclarationSyntax declaration;
 
