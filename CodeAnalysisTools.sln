@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Core", "src\CodeAnalysisTools.Core\CodeAnalysisTools.Core.csproj", "{20ED6FBE-DD38-4A74-A869-CC77F23E1168}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NETStandard", "NETStandard", "{7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}"
@@ -26,7 +24,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.NetStanda
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.NetStandard.Configuration", "src\NETStandard\CodeAnalysisTools.NetStandard.Configuration\CodeAnalysisTools.NetStandard.Configuration.csproj", "{94A4B427-DE81-4F76-9F29-EB33796A4D57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.ActionProviders", "src\CodeAnalysisTools.Providers\CodeAnalysisTools.ActionProviders.csproj", "{90C47742-34B3-4C71-8B79-D020B60E816B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.ActionProviders", "src\Portable\CodeAnalysisTools.Providers\CodeAnalysisTools.ActionProviders.csproj", "{90C47742-34B3-4C71-8B79-D020B60E816B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Common", "src\Portable\CodeAnalysisTools.Core\CodeAnalysisTools.Common.csproj", "{20ED6FBE-DD38-4A74-A869-CC77F23E1168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalysisTools.Analyzers", "src\Portable\CodeAnalysisTools.Analyzers\CodeAnalysisTools.Analyzers.csproj", "{D3ECE8B5-63CE-4284-8659-392667998823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +36,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3698AEF7-1123-427E-B02C-3A0CAE3560D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,18 +56,27 @@ Global
 		{90C47742-34B3-4C71-8B79-D020B60E816B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90C47742-34B3-4C71-8B79-D020B60E816B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90C47742-34B3-4C71-8B79-D020B60E816B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3ECE8B5-63CE-4284-8659-392667998823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3ECE8B5-63CE-4284-8659-392667998823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3ECE8B5-63CE-4284-8659-392667998823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3ECE8B5-63CE-4284-8659-392667998823}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{20ED6FBE-DD38-4A74-A869-CC77F23E1168} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
 		{7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
 		{CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
 		{3698AEF7-1123-427E-B02C-3A0CAE3560D4} = {CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}
 		{323AFD71-DA57-44C3-9F6A-F8C09BDC5D64} = {7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}
 		{52DA3057-211E-42E8-9982-DB62FB61F786} = {7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}
 		{94A4B427-DE81-4F76-9F29-EB33796A4D57} = {7E9C4DB1-79EA-4242-8EFE-46C2DCD1040E}
-		{90C47742-34B3-4C71-8B79-D020B60E816B} = {9C3D94B1-625E-4844-AC32-B02C2B047D27}
+		{90C47742-34B3-4C71-8B79-D020B60E816B} = {CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}
+		{20ED6FBE-DD38-4A74-A869-CC77F23E1168} = {CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}
+		{D3ECE8B5-63CE-4284-8659-392667998823} = {CBF5C3F7-E5CE-4B45-B5D5-7BA5EE9187D5}
 	EndGlobalSection
 EndGlobal

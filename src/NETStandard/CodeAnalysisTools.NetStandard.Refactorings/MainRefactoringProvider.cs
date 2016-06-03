@@ -3,7 +3,7 @@ using System.Composition;
 using System.IO;
 using System.Threading.Tasks;
 using CodeAnalysisTools.Configuration;
-using CodeAnalysisTools.Core;
+using CodeAnalysisTools.Refactoring;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 

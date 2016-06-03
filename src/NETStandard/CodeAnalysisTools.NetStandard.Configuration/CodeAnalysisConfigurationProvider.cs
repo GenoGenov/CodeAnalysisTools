@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using CodeAnalysisTools.Core;
+using CodeAnalysisTools.Options;
 using Microsoft.Extensions.Configuration;
 
 namespace CodeAnalysisTools.Configuration

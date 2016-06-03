@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3698AEF7-1123-427E-B02C-3A0CAE3560D4}</ProjectGuid>
+    <ProjectGuid>{D3ECE8B5-63CE-4284-8659-392667998823}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeAnalysisTools.Portable.Refactorings</RootNamespace>
-    <AssemblyName>CodeAnalysisTools.Portable.Refactorings</AssemblyName>
+    <RootNamespace>CodeAnalysisTools.Analyzers</RootNamespace>
+    <AssemblyName>CodeAnalysisTools.Analyzers</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,18 +34,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MainRefactoringProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+    <Compile Include="CATA001_MultipleBlankLines.cs" />
+    <Compile Include="CATA002_ClosingBracePrecededByBlankLine.cs" />
+    <Compile Include="CATA003_ArgumentListMultipleLines.cs" />
+    <Compile Include="CATA004_SingleLineCommentPreceededByBlankLine.cs" />
+    <Compile Include="CATA005_SingleLineCommentFollowedByBlankLine.cs" />
+    <Compile Include="CATA006_OpeningBraceFollowedByBlankLine.cs" />
+    <Compile Include="CATA007_OpeningBraceSpacing.cs" />
+    <Compile Include="CATA008_NamespaceName.cs" />
+    <Compile Include="CodeFixes\CATA001_MultipleBlankLines.cs" />
+    <Compile Include="CodeFixes\CATA002_ClosingBracePrecededByBlankLine.cs" />
+    <Compile Include="CodeFixes\CATA003_ArgumentListMultipleLines.cs" />
+    <Compile Include="CodeFixes\CATA004_BS005_SingleLineCommentSpacing.cs" />
+    <Compile Include="CodeFixes\CATA006_OpeningBraceFollowedByBlankLine.cs" />
+    <Compile Include="CodeFixes\CATA008_NamespaceName.cs" />
+    <Compile Include="CodeFixes\CATA007_OpeningBraceSpacing.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -102,8 +112,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CodeAnalysisTools.Core\CodeAnalysisTools.Common.csproj">
-      <Project>{20ED6FBE-DD38-4A74-A869-CC77F23E1168}</Project>
+      <Project>{20ed6fbe-dd38-4a74-a869-cc77f23e1168}</Project>
       <Name>CodeAnalysisTools.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\CodeAnalysisTools.Providers\CodeAnalysisTools.ActionProviders.csproj">

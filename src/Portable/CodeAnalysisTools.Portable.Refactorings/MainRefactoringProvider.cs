@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
-using CodeAnalysisTools.Core;
+using CodeAnalysisTools.Options;
+using CodeAnalysisTools.Refactoring;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 

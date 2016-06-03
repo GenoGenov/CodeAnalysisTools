@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Composition;
-using System.Windows;
 using System.Windows.Controls;
-using CodeAnalysisTools.Core.Services;
-using CodeAnalysisTools.Core.Models;
+using CodeAnalysisTools.Models;
 using CodeAnalysisTools.Refactorings.Dialogs;
+using CodeAnalysisTools.Services;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Host.Mef;
 

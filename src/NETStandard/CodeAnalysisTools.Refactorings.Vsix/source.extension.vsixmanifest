@@ -14,10 +14,12 @@
     <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
   </Dependencies>
   <Assets>
-    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="CodeAnalysisTools.Core" Path="|CodeAnalysisTools.Core|" AssemblyName="|CodeAnalysisTools.Core;AssemblyName|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="CodeAnalysisTools.Common" Path="|CodeAnalysisTools.Common|" AssemblyName="|CodeAnalysisTools.Common;AssemblyName|" />
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CodeAnalysisTools.NetStandard.Refactorings" Path="|CodeAnalysisTools.NetStandard.Refactorings|" />
     <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="CodeAnalysisTools.NetStandard.Configuration" Path="|CodeAnalysisTools.NetStandard.Configuration|" AssemblyName="|CodeAnalysisTools.NetStandard.Configuration;AssemblyName|" />
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CodeAnalysisTools.Analyzers" Path="|CodeAnalysisTools.Analyzers|" />
+    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="CodeAnalysisTools.Analyzers" Path="|CodeAnalysisTools.Analyzers|" />
   </Assets>
 </PackageManifest>

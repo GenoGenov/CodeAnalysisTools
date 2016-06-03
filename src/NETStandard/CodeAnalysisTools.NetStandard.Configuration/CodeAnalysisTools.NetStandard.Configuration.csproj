@@ -120,9 +120,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CodeAnalysisTools.Core\CodeAnalysisTools.Core.csproj">
+    <ProjectReference Include="..\..\Portable\CodeAnalysisTools.Core\CodeAnalysisTools.Common.csproj">
       <Project>{20ED6FBE-DD38-4A74-A869-CC77F23E1168}</Project>
-      <Name>CodeAnalysisTools.Core</Name>
+      <Name>CodeAnalysisTools.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

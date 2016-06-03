@@ -62,15 +62,23 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Key.snk" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CodeAnalysisTools.Core\CodeAnalysisTools.Core.csproj">
-      <Project>{20ED6FBE-DD38-4A74-A869-CC77F23E1168}</Project>
-      <Name>CodeAnalysisTools.Core</Name>
+    <ProjectReference Include="..\..\Portable\CodeAnalysisTools.Analyzers\CodeAnalysisTools.Analyzers.csproj">
+      <Project>{D3ECE8B5-63CE-4284-8659-392667998823}</Project>
+      <Name>CodeAnalysisTools.Analyzers</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Portable\CodeAnalysisTools.Core\CodeAnalysisTools.Common.csproj">
+      <Project>{20ed6fbe-dd38-4a74-a869-cc77f23e1168}</Project>
+      <Name>CodeAnalysisTools.Common</Name>
       <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
       <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
