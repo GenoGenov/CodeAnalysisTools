@@ -32,22 +32,13 @@ namespace CodeAnalysisTools.CodeFixes
 			var diagnostic = context.Diagnostics.First();
 			var diagnosticSpan = diagnostic.Location.SourceSpan;
 
-			var declaration = root.FindNode(diagnosticSpan) as NamespaceDeclarationSyntax;
+			var declaration = root.FindNode(diagnosticSpan).AncestorsAndSelf().First(x => x is NamespaceDeclarationSyntax) as NamespaceDeclarationSyntax;
+
+			var asd = new FixNamespaceCodeAction(context.Document, declaration);
 
 			context.RegisterCodeFix(
-				new FixNamespaceCodeAction(context.Document, declaration),
+				asd,
 				diagnostic);
-		}
-
-		private async Task<Document> FixBraceSpacingAsync(Document document, SyntaxToken declaration, CancellationToken cancellationToken)
-		{
-			var newDeclaration = declaration
-				.WithTrailingTrivia(declaration.TrailingTrivia.Add(SyntaxFactory.Space));
-
-			var root = await document.GetSyntaxRootAsync();
-			var newRoot = root.ReplaceToken(declaration, newDeclaration);
-
-			return document.WithSyntaxRoot(newRoot);
 		}
 	}
 }

@@ -14,13 +14,13 @@ namespace CodeAnalysisTools.Refactorings
 	{
 		private static ImmutableArray<CodeAnalysisRefactoringProvider> RefactoringProviders = ImmutableArray.Create<CodeAnalysisRefactoringProvider>(
 			new ExtractDtoCodeRefactoringProvider(),
-			new ExtractConverterCodeRefactoringProvider(),
-			new FixNamespaceCodeRefactoringProvider()
+			new ExtractConverterCodeRefactoringProvider()
 			);
 
 		public sealed async override Task ComputeRefactoringsAsync(CodeRefactoringContext context)
 		{
-			var options = CodeAnalysisConfigurationProvider.GetOptions(Path.Combine(context.Document.Project.Solution.FilePath, "..\\"));
+			var optionsProvider = CodeAnalysisConfigurationProvider.Create(Path.Combine(context.Document.Project.Solution.FilePath, "..\\"));
+			var options = optionsProvider.GetOptions();
 
 			foreach (var provider in RefactoringProviders)
 			{

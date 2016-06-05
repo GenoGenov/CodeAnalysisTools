@@ -11,6 +11,12 @@ namespace CodeAnalysisTools.Options
 				ImplementMethods = false,
 				Folders = new List<string>()
 			};
+
+			this.ExtractAssembler = new ExtractAssemblerOptions
+			{
+				ImplementDtoConvert = false,
+				ImplementModelConvert = false
+			};
 		}
 	}
 }
