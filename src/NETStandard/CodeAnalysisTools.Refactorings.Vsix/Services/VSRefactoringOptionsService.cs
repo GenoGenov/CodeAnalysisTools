@@ -19,7 +19,8 @@ namespace CodeAnalysisTools.Refactorings.Vsix.Services
 		{
 			this.dialogFactories = new Dictionary<Type, Func<IRefactoringModel, UserControl>>()
 			{
-				{ typeof(ExtractConverterModel), (m) => new ExtractAssemblerControl() }
+				{ typeof(ExtractConverterModel), (m) => new ExtractAssemblerControl() },
+				{ typeof(CreateUnitTestsModel), (m) => new CreateUnitTestsControl() }
 			};
 		}
 

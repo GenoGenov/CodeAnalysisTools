@@ -55,6 +55,7 @@
     <Compile Include="Extensions\GeneratedCodeAnalysisExtensions.cs" />
     <Compile Include="Helpers\IndentationHelper.cs" />
     <Compile Include="Helpers\TriviaHelper.cs" />
+    <Compile Include="Models\CreateUnitTestsModel.cs" />
     <Compile Include="Options\CodeAnalysisOptions.cs" />
     <Compile Include="Refactoring\CodeAnalysisRefactoringProvider.cs" />
     <Compile Include="Options\DefaultCodeAnalysisOptions.cs" />

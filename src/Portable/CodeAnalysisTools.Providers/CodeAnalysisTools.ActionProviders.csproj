@@ -39,9 +39,11 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CodeActions\CreateUnitTestsCodeAction.cs" />
     <Compile Include="CodeActions\ExtractConverterCodeAction.cs" />
     <Compile Include="CodeActions\ExtractDtoCodeAction.cs" />
     <Compile Include="CodeActions\FixNamespaceCodeAction.cs" />
+    <Compile Include="CreateUnitTestsCodeRefactoringProvider.cs" />
     <Compile Include="ExtractConverterCodeRefactoringProvider.cs" />
     <Compile Include="FixNamespaceCodeRefactoringProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
