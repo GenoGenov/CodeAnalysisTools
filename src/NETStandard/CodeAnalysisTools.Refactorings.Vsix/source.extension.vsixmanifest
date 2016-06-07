@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="CodeAnalysisTools.Refactorings..ab0c6e63-4db7-47ac-8eb5-e04517da2b8c" Version="0.0.2" Language="en-US" Publisher="dirty" />
+    <Identity Id="CodeAnalysisTools.Refactorings..ab0c6e63-4db7-47ac-8eb5-e04517da2b8c" Version="0.0.3" Language="en-US" Publisher="dirty" />
     <DisplayName>CodeAnalysisTools.Refactorings</DisplayName>
     <Description xml:space="preserve">This is a sample code refactoring extension for the .NET Compiler Platform ("Roslyn").</Description>
     <Icon>Resources\CodeAnalysis.NetStandardPackage.ico</Icon>
@@ -14,9 +14,7 @@
     <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
   </Dependencies>
   <Assets>
-    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="CodeAnalysisTools.Common" Path="|CodeAnalysisTools.Common|" AssemblyName="|CodeAnalysisTools.Common;AssemblyName|" />
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CodeAnalysisTools.NetStandard.Refactorings" Path="|CodeAnalysisTools.NetStandard.Refactorings|" />
-    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="CodeAnalysisTools.NetStandard.Configuration" Path="|CodeAnalysisTools.NetStandard.Configuration|" AssemblyName="|CodeAnalysisTools.NetStandard.Configuration;AssemblyName|" />
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CodeAnalysisTools.Analyzers" Path="|CodeAnalysisTools.Analyzers|" />

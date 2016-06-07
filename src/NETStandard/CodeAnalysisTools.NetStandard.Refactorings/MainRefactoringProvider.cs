@@ -14,7 +14,7 @@ namespace CodeAnalysisTools.Refactorings
 	{
 		private static ImmutableArray<CodeAnalysisRefactoringProvider> RefactoringProviders = ImmutableArray.Create<CodeAnalysisRefactoringProvider>(
 			new ExtractDtoCodeRefactoringProvider(),
-			new ExtractConverterCodeRefactoringProvider(),
+			// new ExtractConverterCodeRefactoringProvider(),
 			new CreateUnitTestsCodeRefactoringProvider()
 			);
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using CodeAnalysisTools.Refactorings.Vsix.UI;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.PlatformUI;
 
@@ -22,29 +21,10 @@ namespace CodeAnalysisTools.Refactorings
 		{
 			this.DialogResult = true;
 		}
-	}
 
-	public class BindingPropertyTemplateSelector : DataTemplateSelector
-	{
-		public override DataTemplate SelectTemplate(object item, DependencyObject container)
+		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
 		{
-			var prop = item as IBindingProperty;
-			var element = container as FrameworkElement;
-
-			if (prop.IsType<ISymbol>())
-			{
-				return (DataTemplate)element.Resources["symbol"];
-			}
-			if (prop.IsType<IEnumerable<ISymbol>>())
-			{
-				return (DataTemplate)element.Resources["symbolarr"];
-			}
-			if (prop.IsType<bool>())
-			{
-				return (DataTemplate)element.Resources["bool"];
-			}
-
-			return base.SelectTemplate(item, container);
+			this.DialogResult = false;
 		}
 	}
 }
