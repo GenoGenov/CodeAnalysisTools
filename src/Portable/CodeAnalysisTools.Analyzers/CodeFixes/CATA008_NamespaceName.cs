@@ -34,10 +34,8 @@ namespace CodeAnalysisTools.CodeFixes
 
 			var declaration = root.FindNode(diagnosticSpan).AncestorsAndSelf().First(x => x is NamespaceDeclarationSyntax) as NamespaceDeclarationSyntax;
 
-			var asd = new FixNamespaceCodeAction(context.Document, declaration);
-
 			context.RegisterCodeFix(
-				asd,
+				new FixNamespaceCodeAction(context.Document, declaration),
 				diagnostic);
 		}
 	}

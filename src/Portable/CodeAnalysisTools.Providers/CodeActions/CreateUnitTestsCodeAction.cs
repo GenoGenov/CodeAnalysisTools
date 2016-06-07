@@ -97,7 +97,8 @@ namespace CodeAnalysisTools.Providers.CodeActions
 			{
 				var newNamespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(project.AssemblyName + "." + this.declaration.Identifier.Text + "Tests"));
 
-				var classDecl = SyntaxFactory.ClassDeclaration(SyntaxFactory.Identifier(method.Identifier.Text + "_Should")
+				var classDecl = SyntaxFactory.ClassDeclaration(
+					SyntaxFactory.Identifier(method.Identifier.Text + "_Should")
 					.WithAdditionalAnnotations(RenameAnnotation.Create()))
 					.WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
 					.AddAttributeLists(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("TestClass")) })));
