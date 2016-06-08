@@ -124,7 +124,7 @@ namespace CodeAnalysisTools.Providers.CodeActions
 								.WithMembers(publicMembers);
 
 			var oldNameSpace = this.typeDeclaration.FirstAncestorOrSelf<NamespaceDeclarationSyntax>();
-			var newNamespaceName = this.GetNewNamespaceName(options, project);
+			var newNamespaceName = this.GetNewNamespaceName(options, document);
 			var newNameSpace = SyntaxFactory.NamespaceDeclaration(newNamespaceName)
 				.AddMembers(classDecl);
 
@@ -143,12 +143,26 @@ namespace CodeAnalysisTools.Providers.CodeActions
 			return new CodeActionOperation[] { new ApplyChangesOperation(newDoc.Project.Solution), new OpenDocumentOperation(newDoc.Id, true) };
 		}
 
-		private NameSyntax GetNewNamespaceName(CodeAnalysisOptions options, Project project)
+		private NameSyntax GetNewNamespaceName(CodeAnalysisOptions options, Document document)
 		{
-			var newNamespaceName = (options.ExtractDto.DefaultNamespace ?? project.Name);
+			string newNamespaceName = string.Empty;
+
+			if (string.IsNullOrEmpty(options.ExtractDto.DefaultNamespace))
+			{
+				newNamespaceName = document.Project.Name;
+			}
+			else
+			{
+				newNamespaceName = options.ExtractDto.DefaultNamespace;
+			}
+
 			if (options.ExtractDto.Folders != null && options.ExtractDto.Folders.Any())
 			{
 				newNamespaceName += "." + string.Join(".", options.ExtractDto.Folders);
+			}
+			else
+			{
+				newNamespaceName += "." + string.Join(".", document.Folders);
 			}
 
 			return SyntaxFactory.ParseName(newNamespaceName);

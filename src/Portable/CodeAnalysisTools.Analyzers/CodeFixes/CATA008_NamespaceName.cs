@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CodeAnalysisTools.CodeFixes
 {
-	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ClosingBracePrecededByBlankLineCodeFixProvider)), Shared]
+	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(NameSpaceNameCodeFixProvider)), Shared]
 	public class NameSpaceNameCodeFixProvider : CodeFixProvider
 	{
 		public sealed override ImmutableArray<string> FixableDiagnosticIds

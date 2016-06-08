@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="CodeAnalysisTools.Refactorings..ab0c6e63-4db7-47ac-8eb5-e04517da2b8c" Version="0.0.3" Language="en-US" Publisher="dirty" />
-    <DisplayName>CodeAnalysisTools.Refactorings</DisplayName>
+    <DisplayName>CodeAnalysisTools</DisplayName>
     <Description xml:space="preserve">This is a sample code refactoring extension for the .NET Compiler Platform ("Roslyn").</Description>
     <Icon>Resources\CodeAnalysis.NetStandardPackage.ico</Icon>
   </Metadata>

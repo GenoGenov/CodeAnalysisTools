@@ -58,7 +58,7 @@ namespace CodeAnalysisTools.Analyzers
 
 			foreach (var brace in closingBraces)
 			{
-				if (brace.LeadingTrivia.Where(x => x.IsKind(SyntaxKind.EndOfLineTrivia)).Any())
+				if (brace.IsPreceededByBlankLine())
 				{
 					var diagnostic = Diagnostic.Create(Rule, brace.GetLocation(), string.Empty);
 

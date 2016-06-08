@@ -58,14 +58,10 @@ namespace CodeAnalysisTools.Analyzers
 
 			var root = await context.Tree.GetRootAsync();
 
-			var tokens = root.DescendantTrivia().Where(x => x.IsKind(SyntaxKind.EndOfLineTrivia)).Select(x => x.Token).Distinct();
+			var tokens = root.DescendantTokens();
 
 			foreach (var token in tokens)
 			{
-				if (token.IsKind(SyntaxKind.CloseBraceToken))
-				{
-					continue;
-				}
 				if (token.LeadingTrivia.HasConsecutiveEndLineTrivia() || token.TrailingTrivia.HasConsecutiveEndLineTrivia())
 				{
 					var diagnostic = Diagnostic.Create(Rule, token.GetLocation(), string.Empty);

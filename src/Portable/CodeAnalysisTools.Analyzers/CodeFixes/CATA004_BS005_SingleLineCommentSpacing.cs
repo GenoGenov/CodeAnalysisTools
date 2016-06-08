@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 
 namespace CodeAnalysisTools.CodeFixes
 {
-	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(MultipleBlankLinesCodeFixProvider)), Shared]
+	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SingleLineCommentSpacingCodeFixProvider)), Shared]
 	public class SingleLineCommentSpacingCodeFixProvider : CodeFixProvider
 	{
 		private const string title = "Fix comment spacing";

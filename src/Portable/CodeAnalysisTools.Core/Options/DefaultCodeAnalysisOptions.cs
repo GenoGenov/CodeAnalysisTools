@@ -9,7 +9,9 @@ namespace CodeAnalysisTools.Options
 			this.ExtractDto = new ExtractDtoOptions
 			{
 				ImplementMethods = false,
-				Folders = new List<string>()
+				Folders = new List<string>(),
+				Project = string.Empty,
+				DefaultNamespace = string.Empty
 			};
 
 			this.ExtractAssembler = new ExtractAssemblerOptions

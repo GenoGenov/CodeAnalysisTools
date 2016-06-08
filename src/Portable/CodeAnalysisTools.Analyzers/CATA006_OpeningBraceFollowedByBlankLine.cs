@@ -66,8 +66,7 @@ namespace CodeAnalysisTools.Analyzers
 			foreach (var brace in openingBrace)
 			{
 				var nextToken = brace.GetNextToken();
-				if ((nextToken.IsKind(SyntaxKind.None) && brace.TrailingTrivia.HasConsecutiveEndLineTrivia()) ||
-					(brace.TrailingTrivia.HasVisibleEndOfLineTrivia() && nextToken.LeadingTrivia.HasVisibleEndOfLineTrivia()))
+				if (brace.IsFollowedByBlankLine())
 				{
 					var diagnostic = Diagnostic.Create(Rule, brace.GetLocation(), string.Empty);
 

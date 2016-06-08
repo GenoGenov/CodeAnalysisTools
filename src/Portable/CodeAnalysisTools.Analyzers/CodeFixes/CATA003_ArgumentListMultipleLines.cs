@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CodeAnalysisTools.CodeFixes
 {
-	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ClosingBracePrecededByBlankLineCodeFixProvider)), Shared]
+	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ArgumentListMultipleLinesCodeFixProvider)), Shared]
 	public class ArgumentListMultipleLinesCodeFixProvider : CodeFixProvider
 	{
 		private const string title = "Place arguments on separate lines.";

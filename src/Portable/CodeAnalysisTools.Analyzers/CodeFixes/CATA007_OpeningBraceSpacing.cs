@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace CodeAnalysisTools.CodeFixes
 {
-	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ClosingBracePrecededByBlankLineCodeFixProvider)), Shared]
+	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(OpeningBraceSpacingCodeFixProvider)), Shared]
 	public class OpeningBraceSpacingCodeFixProvider : CodeFixProvider
 	{
 		private const string title = "Fix brace spacing.";

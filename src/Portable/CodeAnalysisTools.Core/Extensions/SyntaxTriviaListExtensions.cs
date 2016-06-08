@@ -76,22 +76,6 @@ namespace CodeAnalysisTools
 			return false;
 		}
 
-		public static bool HasPreceeding(this SyntaxTriviaList trivia, SyntaxKind targetKind, SyntaxKind preceedingKind)
-		{
-			int preceedingIndex = trivia.IndexOf(preceedingKind);
-			int targetIndex = trivia.IndexOf(targetKind, preceedingIndex);
-
-			return preceedingIndex > -1 && targetIndex > -1;
-		}
-
-		public static bool HasTrailing(this SyntaxTriviaList trivia, SyntaxKind targetKind, SyntaxKind trailingKind)
-		{
-			int targetIndex = trivia.IndexOf(targetKind);
-			int trailingIndex = trivia.IndexOf(trailingKind, targetIndex);
-
-			return targetIndex > -1 && trailingIndex > -1;
-		}
-
 		public static int IndexOf(this SyntaxTriviaList trivia, SyntaxKind triviaKind, int startIndex)
 		{
 			for (int i = startIndex; i < trivia.Count; i++)
@@ -164,6 +148,11 @@ namespace CodeAnalysisTools
 			}
 
 			return result;
+		}
+
+		public static bool IsComment(this SyntaxTrivia trivia)
+		{
+			return trivia.IsKind(SyntaxKind.SingleLineCommentTrivia) || trivia.IsKind(SyntaxKind.MultiLineCommentTrivia);
 		}
 	}
 }

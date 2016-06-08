@@ -53,6 +53,7 @@
     <Compile Include="CodeActions\CodeAnalysisCodeActionWithOptions.cs" />
     <Compile Include="CodeActions\CodeAnalysisCodeAction.cs" />
     <Compile Include="Extensions\GeneratedCodeAnalysisExtensions.cs" />
+    <Compile Include="Extensions\SyntaxTokenExtensions.cs" />
     <Compile Include="Helpers\IndentationHelper.cs" />
     <Compile Include="Helpers\TriviaHelper.cs" />
     <Compile Include="Models\CreateUnitTestsModel.cs" />
