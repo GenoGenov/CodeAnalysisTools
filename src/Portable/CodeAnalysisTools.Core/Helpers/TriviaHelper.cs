@@ -21,7 +21,7 @@ namespace CodeAnalysisTools.Helpers
 			var result = SyntaxFactory.TriviaList();
 
 			return result
-				.AddRange(parts[0].AddLeadingEndOfLineIfNotExist())
+				.AddRange(parts[0])
 				.AddRange(parts.Skip(1).SelectMany(x => x.RemoveConsecutiveEndLines()).ToList());
 		}
 	}

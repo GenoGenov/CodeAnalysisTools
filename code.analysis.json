@@ -1,0 +1,12 @@
+{
+  "ExtractDto": {
+    "Project": "",
+    "Folders": [],
+    "ImplementMethods": false,
+    "DefaultNamespace": ""
+  },
+  "ExtractAssembler": {
+    "ImplementModelConvert": false,
+    "ImplementDtoConvert": false
+  }
+}

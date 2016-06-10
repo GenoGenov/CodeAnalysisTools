@@ -58,7 +58,6 @@ namespace CodeAnalysisTools.CodeFixes
 			var root = await document.GetSyntaxRootAsync();
 			var newRoot = root.ReplaceToken(token, newDeclaration);
 
-			// Return the new solution with the now-uppercase type name.
 			return document.WithSyntaxRoot(newRoot);
 		}
 	}

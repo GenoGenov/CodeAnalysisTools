@@ -1,5 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CodeAnalysisTools
 {
@@ -9,79 +11,199 @@ namespace CodeAnalysisTools
 		{
 			var prevToken = token.GetPreviousToken();
 
-			// token has > 1 EOF at the end of leading list
-			if (token.LeadingTrivia.Count > 1 &&
-				token.LeadingTrivia[token.LeadingTrivia.Count - 1].IsKind(SyntaxKind.EndOfLineTrivia) &&
-				token.LeadingTrivia[token.LeadingTrivia.Count - 2].IsKind(SyntaxKind.EndOfLineTrivia))
+			var allPreceedingTrivia = token.LeadingTrivia;
+
+			if (prevToken != null)
 			{
-				return true;
+				allPreceedingTrivia = prevToken.TrailingTrivia.AddRange(allPreceedingTrivia);
 			}
 
-			// token has whitespace + >= 1 EOF not preceeded by comment at the end of leading list
-			if (token.LeadingTrivia.Count > 2 &&
-				token.LeadingTrivia[token.LeadingTrivia.Count - 1].IsKind(SyntaxKind.WhitespaceTrivia) &&
-				token.LeadingTrivia[token.LeadingTrivia.Count - 2].IsKind(SyntaxKind.EndOfLineTrivia) &&
-				token.LeadingTrivia[token.LeadingTrivia.Count - 3].IsComment() == false)
+			int eofCount = 0;
+
+			foreach (var trivia in allPreceedingTrivia.Reverse())
 			{
-				return true;
+				var kind = trivia.Kind();
+
+				if (kind == SyntaxKind.WhitespaceTrivia)
+				{
+					continue;
+				}
+				else if (kind == SyntaxKind.EndOfLineTrivia)
+				{
+					eofCount++;
+					continue;
+				}
+				//else if (trivia.IsComment())
+				//{
+				//	eofCount--;
+				//	break;
+				//}
+				else
+				{
+					break;
+				}
 			}
 
-			// prev token has > 1 EOF at the end of trailing list
-			if (prevToken != null && prevToken.TrailingTrivia.Count > 1 &&
-				prevToken.TrailingTrivia[prevToken.TrailingTrivia.Count - 1].IsKind(SyntaxKind.EndOfLineTrivia) &&
-				prevToken.TrailingTrivia[prevToken.TrailingTrivia.Count - 2].IsKind(SyntaxKind.EndOfLineTrivia))
-			{
-				return true;
-			}
-
-			// prev token has >= 1 EOF at the end of trailing list and token has >= 1 EOF at the start of leading list
-			if (prevToken != null && prevToken.TrailingTrivia.Count > 0 &&
-				prevToken.TrailingTrivia.Last().IsKind(SyntaxKind.EndOfLineTrivia) &&
-				token.LeadingTrivia.Count > 0 && token.LeadingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia))
-			{
-				return true;
-			}
-
-			return false;
+			return eofCount > 1;
 		}
 
 		public static bool IsFollowedByBlankLine(this SyntaxToken token)
 		{
 			var nextToken = token.GetNextToken();
 
-			// token has > 1 EOF at the start of trailing list
-			if (token.TrailingTrivia.Count > 1 &&
-				token.TrailingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia) &&
-				token.TrailingTrivia[1].IsKind(SyntaxKind.EndOfLineTrivia))
+			var allTrailingTrivia = token.TrailingTrivia;
+
+			if (nextToken != null)
 			{
-				return true;
+				allTrailingTrivia = allTrailingTrivia.AddRange(nextToken.LeadingTrivia);
 			}
 
-			// token has whitespace + >= 1 EOF at the start of trailing trivia
-			if (token.TrailingTrivia.Count > 1 &&
-				token.TrailingTrivia[0].IsKind(SyntaxKind.WhitespaceTrivia) &&
-				token.TrailingTrivia[1].IsKind(SyntaxKind.EndOfLineTrivia))
+			int eofCount = 0;
+
+			foreach (var trivia in allTrailingTrivia)
 			{
-				return true;
+				var kind = trivia.Kind();
+
+				if (kind == SyntaxKind.WhitespaceTrivia)
+				{
+					continue;
+				}
+				else if (kind == SyntaxKind.EndOfLineTrivia)
+				{
+					eofCount++;
+					continue;
+				}
+				else
+				{
+					break;
+				}
 			}
 
-			// next token has > 1 EOF at the start of leading list
-			if (nextToken != null && nextToken.LeadingTrivia.Count > 1 &&
-				nextToken.LeadingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia) &&
-				nextToken.LeadingTrivia[1].IsKind(SyntaxKind.EndOfLineTrivia))
+			return eofCount > 1;
+		}
+
+		public static SyntaxNode RemovePreceedingBlankLine(this SyntaxToken token)
+		{
+			int eofCount = 0;
+
+			bool addAllToEnd = false;
+
+			var node = token.Parent;
+
+			var prevToken = token.GetPreviousToken();
+
+			var allPreceedingTrivia = token.LeadingTrivia;
+
+			if (prevToken != null)
 			{
-				return true;
+				allPreceedingTrivia = prevToken.TrailingTrivia.AddRange(allPreceedingTrivia);
 			}
 
-			// next token has >= 1 EOF at the start of leading list and token has >= 1 EOF at the end of trailing list
-			if (nextToken != null && nextToken.LeadingTrivia.Count > 0 &&
-				nextToken.LeadingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia) &&
-				token.TrailingTrivia.Count > 0 && token.TrailingTrivia.Last().IsKind(SyntaxKind.EndOfLineTrivia))
+			var newTrailingTrivia = new List<SyntaxTrivia>();
+
+			foreach (var trivia in allPreceedingTrivia.Reverse())
 			{
-				return true;
+				var kind = trivia.Kind();
+
+				if (addAllToEnd)
+				{
+					newTrailingTrivia.Add(trivia);
+					continue;
+				}
+
+				if (kind == SyntaxKind.WhitespaceTrivia)
+				{
+					newTrailingTrivia.Add(trivia);
+				}
+				else if (eofCount == 0 && kind == SyntaxKind.EndOfLineTrivia)
+				{
+					eofCount++;
+
+					continue;
+				}
+				else
+				{
+					newTrailingTrivia.Add(trivia);
+					addAllToEnd = true;
+				}
 			}
 
-			return false;
+			newTrailingTrivia.Reverse();
+
+			var result = node.ReplaceTokens(new[] { prevToken, token}, (old, potential)=> 
+			{
+				if (old == prevToken)
+				{
+					return prevToken.WithTrailingTrivia(newTrailingTrivia);
+				}
+				else
+				{
+					return token.WithLeadingTrivia(SyntaxFactory.TriviaList());
+				}
+			});
+
+			return result;
+		}
+
+		public static SyntaxNode RemoveFollowingBlankLine(this SyntaxToken token)
+		{
+			int eofCount = 0;
+
+			bool addAllToEnd = false;
+
+			var node = token.Parent;
+
+			var nextToken = token.GetNextToken();
+
+			var allFollowingTrivia = token.TrailingTrivia;
+
+			if (nextToken != null)
+			{
+				allFollowingTrivia = allFollowingTrivia.AddRange(nextToken.LeadingTrivia);
+			}
+
+			var newTrailingTrivia = new List<SyntaxTrivia>();
+
+			foreach (var trivia in allFollowingTrivia)
+			{
+				var kind = trivia.Kind();
+
+				if (addAllToEnd)
+				{
+					newTrailingTrivia.Add(trivia);
+					continue;
+				}
+
+				if (kind == SyntaxKind.WhitespaceTrivia)
+				{
+					newTrailingTrivia.Add(trivia);
+				}
+				else if (eofCount == 0 && kind == SyntaxKind.EndOfLineTrivia)
+				{
+					eofCount++;
+
+					continue;
+				}
+				else
+				{
+					newTrailingTrivia.Add(trivia);
+					addAllToEnd = true;
+				}
+			}
+
+			var result = node.ReplaceTokens(new[] { nextToken, token }, (old, potential) =>
+			{
+				if (old == nextToken)
+				{
+					return nextToken.WithLeadingTrivia(SyntaxFactory.TriviaList());
+				}
+				else
+				{
+					return token.WithTrailingTrivia(newTrailingTrivia);
+				}
+			});
+
+			return result;
 		}
 	}
 }
