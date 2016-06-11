@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.Options;
 
 namespace CodeAnalysisTools.CodeFixes
 {
@@ -48,12 +49,28 @@ namespace CodeAnalysisTools.CodeFixes
 
 		private async Task<Document> RemoveLeadingBlankLineAsync(Document document, ArgumentListSyntax syntax, CancellationToken cancellationToken)
 		{
+			var tabSize = document.Project.Solution.Workspace.Options.GetOption(FormattingOptions.TabSize, LanguageNames.CSharp);
+			bool useTabs = document.Project.Solution.Workspace.Options.GetOption(FormattingOptions.UseTabs, LanguageNames.CSharp);
+
 			var root = await document.GetSyntaxRootAsync();
 
 			var newSyntax = syntax.ReplaceToken(
-											   syntax.OpenParenToken, 
+											   syntax.OpenParenToken,
 											   syntax.OpenParenToken
 					.WithTrailingTrivia(SyntaxFactory.EndOfLine(Environment.NewLine)));
+
+
+			newSyntax = newSyntax.ReplaceTokens(
+												newSyntax.Arguments.GetSeparators(),
+												(oldNode, newNode) =>
+												{
+												  if (oldNode.IsKind(SyntaxKind.CommaToken))
+												  {
+													  return oldNode.WithTrailingTrivia(SyntaxFactory.EndOfLine(Environment.NewLine)).WithLeadingTrivia();
+												  }
+												  return oldNode;
+				  });
+
 
 			newSyntax = newSyntax.ReplaceNodes(
 											  newSyntax.Arguments,
@@ -61,45 +78,16 @@ namespace CodeAnalysisTools.CodeFixes
 											  	{
 											  		if (oldNode.IsKind(SyntaxKind.Argument))
 											  		{
-														  //var argumentTrivia = IndentationHelper.GetIndentationTriviaByNode(root, syntax.OpenParenToken, cancellationToken);
-														  //var result = oldNode.WithLeadingTrivia(argumentTrivia);
-														  //var blocks = result.DescendantNodes(x => x.IsKind(SyntaxKind.Block) == false).OfType<BlockSyntax>();
-														  //var blockTrivia = argumentTrivia.Add(SyntaxFactory.Tab);
-														  //foreach (var block in blocks)
-														  //{
-														  //	result = result.ReplaceNode(block, IndentationHelper.FormatBlockRecursive(block, blockTrivia));
-														  //}
-														  //return result;
-
-														  return oldNode.WithAdditionalAnnotations(Formatter.Annotation);
+														  var argumentTrivia = IndentationHelper.GetIndentationTriviaByNode(useTabs, tabSize, root, syntax.OpenParenToken, cancellationToken);
+														  return IndentationHelper.FormatNodeRecursive(oldNode, argumentTrivia);
 											  		}
 											  		return oldNode;
 											  	});
 
-			newSyntax = newSyntax
-				.ReplaceTokens(
-							  newSyntax.Arguments.GetSeparators(), 
-							  (oldNode, newNode) =>
-							  	{
-							  		if (oldNode.IsKind(SyntaxKind.CommaToken))
-							  		{
-							  			return oldNode
-						.WithTrailingTrivia(
-							oldNode.TrailingTrivia
-							.Where(t => t.IsKind(SyntaxKind.EndOfLineTrivia) == false)
-								.ToSyntaxTriviaList().Add(SyntaxFactory.EndOfLine(Environment.NewLine)))
-						.WithLeadingTrivia();
-							  		}
-							  		return oldNode;
-							  	});
 
-			var newRoot = root.ReplaceNode(syntax, newSyntax.WithAdditionalAnnotations(Formatter.Annotation));
-
-			var changes = Formatter.GetFormattedTextChanges(syntax.Parent.Parent, document.Project.Solution.Workspace);
-
+			var newRoot = root.ReplaceNode(syntax, newSyntax);
 			var newDoc = document.WithSyntaxRoot(newRoot);
-
-			return await Formatter.FormatAsync(newDoc, syntax.Span);
+			return newDoc;
 		}
 	}
 }
