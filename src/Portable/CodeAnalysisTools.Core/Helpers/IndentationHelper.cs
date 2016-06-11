@@ -29,19 +29,20 @@ namespace CodeAnalysisTools.Helpers
 			}
 		}
 
-		public static SyntaxNode FormatNodeRecursive(SyntaxNode node, SyntaxTriviaList startTrivia)
+		public static SyntaxNode FormatNodeRecursive(SyntaxNode node, SyntaxTriviaList startTrivia, bool useTabs, int tabSize)
 		{
-			return FormatNodeRecursive(node, startTrivia, 0);
+			return FormatNodeRecursive(node, startTrivia, useTabs, 0);
 		}
 
-		private static SyntaxNode FormatNodeRecursive(SyntaxNode node, SyntaxTriviaList startTrivia, int depth)
+		private static SyntaxNode FormatNodeRecursive(SyntaxNode node, SyntaxTriviaList startTrivia, bool useTabs, int tabsSize, int depth)
 		{
-			var newTrivia = startTrivia.AddRange(Enumerable.Repeat(SyntaxFactory.Tab, depth));
+			var newTrivia = useTabs ? startTrivia.AddRange(Enumerable.Repeat(SyntaxFactory.Tab, depth)) :
+									  startTrivia.AddRange(Enumerable.Repeat(SyntaxFactory.Space, depth * tabsSize));
 
 			switch (node.Kind())
 			{
 				case SyntaxKind.Block:
-					return FormatBlock(node as BlockSyntax, startTrivia);
+					return FormatBlock(node as BlockSyntax, startTrivia, useTabs, tabsSize);
 				default:
 					var newNode = node;
 					if (node.HasLeadingTrivia && node.GetLeadingTrivia()[0].IsKind(SyntaxKind.EndOfLineTrivia))
@@ -56,7 +57,7 @@ namespace CodeAnalysisTools.Helpers
 							newNode = newNode.WithLeadingTrivia(startTrivia);
 						}
 					}
-					newNode = newNode.ReplaceNodes(newNode.ChildNodes(), (old, potential) => FormatNodeRecursive(old, newTrivia, depth++));
+					newNode = newNode.ReplaceNodes(newNode.ChildNodes(), (old, potential) => FormatNodeRecursive(old, newTrivia, useTabs, tabsSize, depth++));
 					newNode = newNode
 						.ReplaceTokens(newNode.ChildTokens().Where(x => x.LeadingTrivia.Count > 0 && x.LeadingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia)), (old, potential) =>
 							{
@@ -67,16 +68,17 @@ namespace CodeAnalysisTools.Helpers
 			}
 		}
 
-		private static BlockSyntax FormatBlock(BlockSyntax block, SyntaxTriviaList startTrivia)
+		private static BlockSyntax FormatBlock(BlockSyntax block, SyntaxTriviaList startTrivia, bool useTabs, int tabSize)
 		{
-			var statementTrivia = startTrivia.Add(SyntaxFactory.Tab);
+			var statementTrivia = useTabs ? startTrivia.Add(SyntaxFactory.Tab) :
+											startTrivia.AddRange(Enumerable.Repeat(SyntaxFactory.Space, tabSize));
 			var prevToken = block.OpenBraceToken.GetPreviousToken();
 
 			var newBlock = block.Update(
 				block.OpenBraceToken
 					.WithLeadingTrivia(startTrivia)
 					.WithTrailingTrivia(block.OpenBraceToken.TrailingTrivia.AddTrailingEndOfLineIfNotExist()),
-				SyntaxFactory.List(block.Statements.Select(st => IndentationHelper.FormatNodeRecursive(st, statementTrivia).WithTrailingTrivia(st.GetTrailingTrivia().AddTrailingEndOfLineIfNotExist()))),
+				SyntaxFactory.List(block.Statements.Select(st => IndentationHelper.FormatNodeRecursive(st, statementTrivia, useTabs, tabSize).WithTrailingTrivia(st.GetTrailingTrivia().AddTrailingEndOfLineIfNotExist()))),
 				block.CloseBraceToken.WithLeadingTrivia(startTrivia));
 
 			if (prevToken != null && prevToken.TrailingTrivia.Any(SyntaxKind.EndOfLineTrivia) == false)

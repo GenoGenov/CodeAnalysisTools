@@ -79,7 +79,7 @@ namespace CodeAnalysisTools.CodeFixes
 											  		if (oldNode.IsKind(SyntaxKind.Argument))
 											  		{
 														  var argumentTrivia = IndentationHelper.GetIndentationTriviaByNode(useTabs, tabSize, root, syntax.OpenParenToken, cancellationToken);
-														  return IndentationHelper.FormatNodeRecursive(oldNode, argumentTrivia);
+														  return IndentationHelper.FormatNodeRecursive(oldNode, argumentTrivia, useTabs, tabSize);
 											  		}
 											  		return oldNode;
 											  	});
