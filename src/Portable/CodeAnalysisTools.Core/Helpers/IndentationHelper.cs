@@ -16,22 +16,23 @@ namespace CodeAnalysisTools.Helpers
 			var sourceLine = sourceText.Lines.GetLineFromPosition(target.SpanStart);
 			var lineText = sourceText.ToString(sourceLine.Span);
 
-			var tabsCount = lineText.ToCharArray().Count(x => x == '\t');
+			var tabsCount = lineText.ToCharArray().TakeWhile(x => char.IsWhiteSpace(x)).Count(x => x == '\t');
 
-			triviaLength = triviaLength - (tabsCount * tabSize + tabsCount);
+			triviaLength = (triviaLength + tabsCount * tabSize) - tabsCount;
 			if (useTabs)
 			{
-				return SyntaxFactory.TriviaList(Enumerable.Repeat(SyntaxFactory.Tab, 1 + triviaLength / tabSize));
+				return SyntaxFactory.TriviaList(Enumerable.Repeat(SyntaxFactory.Tab, triviaLength / tabSize))
+					.AddRange(Enumerable.Repeat(SyntaxFactory.Space, triviaLength % tabSize));
 			}
 			else
 			{
-				return SyntaxFactory.TriviaList(Enumerable.Repeat<SyntaxTrivia>(SyntaxFactory.Space, triviaLength));
+				return SyntaxFactory.TriviaList(Enumerable.Repeat(SyntaxFactory.Space, triviaLength));
 			}
 		}
 
 		public static SyntaxNode FormatNodeRecursive(SyntaxNode node, SyntaxTriviaList startTrivia, bool useTabs, int tabSize)
 		{
-			return FormatNodeRecursive(node, startTrivia, useTabs, 0);
+			return FormatNodeRecursive(node, startTrivia, useTabs, tabSize, 0);
 		}
 
 		private static SyntaxNode FormatNodeRecursive(SyntaxNode node, SyntaxTriviaList startTrivia, bool useTabs, int tabsSize, int depth)
@@ -59,12 +60,14 @@ namespace CodeAnalysisTools.Helpers
 					}
 					newNode = newNode.ReplaceNodes(newNode.ChildNodes(), (old, potential) => FormatNodeRecursive(old, newTrivia, useTabs, tabsSize, depth++));
 					newNode = newNode
-						.ReplaceTokens(newNode.ChildTokens().Where(x => x.LeadingTrivia.Count > 0 && x.LeadingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia)), (old, potential) =>
-							{
-								return old.WithLeadingTrivia(newTrivia);
-							});
+						.ReplaceTokens(
+                                       newNode.ChildTokens().Where(x => x.LeadingTrivia.Count > 0 && x.LeadingTrivia[0].IsKind(SyntaxKind.EndOfLineTrivia)),
+                                       (old, potential) =>
+                                       {
+                                           return old.WithLeadingTrivia(newTrivia);
+                                       });
 
-					return newNode;			  
+					return newNode;
 			}
 		}
 

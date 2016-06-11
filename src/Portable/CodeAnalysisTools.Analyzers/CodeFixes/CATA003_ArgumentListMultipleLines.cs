@@ -59,30 +59,29 @@ namespace CodeAnalysisTools.CodeFixes
 											   syntax.OpenParenToken
 					.WithTrailingTrivia(SyntaxFactory.EndOfLine(Environment.NewLine)));
 
-
 			newSyntax = newSyntax.ReplaceTokens(
-												newSyntax.Arguments.GetSeparators(),
-												(oldNode, newNode) =>
-												{
-												  if (oldNode.IsKind(SyntaxKind.CommaToken))
-												  {
-													  return oldNode.WithTrailingTrivia(SyntaxFactory.EndOfLine(Environment.NewLine)).WithLeadingTrivia();
-												  }
-												  return oldNode;
-				  });
+                                                newSyntax.Arguments.GetSeparators(),
+                                                (oldNode, newNode) =>
+                                                {
+                                                    if (oldNode.IsKind(SyntaxKind.CommaToken))
+                                                    {
+                                                        return oldNode.WithTrailingTrivia(SyntaxFactory.EndOfLine(Environment.NewLine)).WithLeadingTrivia();
+                                                    }
+                                                    return oldNode;
+                                                });
 
 
+			var argumentTrivia = IndentationHelper.GetIndentationTriviaByNode(useTabs, tabSize, root, syntax.OpenParenToken, cancellationToken);
 			newSyntax = newSyntax.ReplaceNodes(
-											  newSyntax.Arguments,
-											  (oldNode, newNode) =>
-											  	{
-											  		if (oldNode.IsKind(SyntaxKind.Argument))
-											  		{
-														  var argumentTrivia = IndentationHelper.GetIndentationTriviaByNode(useTabs, tabSize, root, syntax.OpenParenToken, cancellationToken);
-														  return IndentationHelper.FormatNodeRecursive(oldNode, argumentTrivia, useTabs, tabSize);
-											  		}
-											  		return oldNode;
-											  	});
+                                               newSyntax.Arguments,
+                                               (oldNode, newNode) =>
+                                               {
+                                                   if (oldNode.IsKind(SyntaxKind.Argument))
+                                                   {
+                                                       return IndentationHelper.FormatNodeRecursive(oldNode, argumentTrivia, useTabs, tabSize);
+                                                   }
+                                                   return oldNode;
+                                               });
 
 
 			var newRoot = root.ReplaceNode(syntax, newSyntax);

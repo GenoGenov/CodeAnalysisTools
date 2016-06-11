@@ -36,9 +36,11 @@ namespace CodeAnalysisTools.Providers.CodeActions
 
 			var folders = this.document.Folders;
 			var newNamespaceName = this.GetNewNamespaceName(this.document);
-			var newNameSpace = this.namespaceDeclaration.WithName(newNamespaceName);
+			var newNameSpace = this.namespaceDeclaration.WithName(
+				newNamespaceName.WithLeadingTrivia(this.namespaceDeclaration.Name.GetLeadingTrivia())
+								.WithTrailingTrivia(this.namespaceDeclaration.Name.GetTrailingTrivia()));
 
-			return this.document.WithSyntaxRoot(root.ReplaceNode(this.namespaceDeclaration, newNameSpace.WithAdditionalAnnotations(Simplifier.Annotation, Formatter.Annotation)));
+			return this.document.WithSyntaxRoot(root.ReplaceNode(this.namespaceDeclaration, newNameSpace));
 		}
 
 		private NameSyntax GetNewNamespaceName(Document document)
